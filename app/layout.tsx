@@ -9,6 +9,7 @@ import { FloatingActions } from "@/components/layout/FloatingActions";
 import { ToastProvider } from "@/components/ui/Toast";
 import { SITE } from "@/lib/site";
 import { MotionProvider } from "@/components/ui/Motion";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <FloatingActions />
           </ToastProvider>
         </MotionProvider>
+        <MetaPixel />
       </body>
     </html>
   );

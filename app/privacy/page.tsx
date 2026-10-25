@@ -33,7 +33,8 @@ export default function PrivacyPage() {
         </section>
         <section className="card-glow rounded-3xl border border-line bg-card p-6 shadow-card">
           <h2 className="flex items-center gap-3 text-xl font-semibold"><span className="brand-gradient h-6 w-1.5 shrink-0 rounded-full" aria-hidden />Hosting and analytics</h2>
-          <p className="mt-2">Our hosting provider may keep standard server logs such as IP address and pages visited. If you add an analytics service, update this section to describe it.</p>
+          <p className="mt-2">Our hosting provider may keep standard server logs such as IP address and pages visited.</p>
+          <p className="mt-2">We use the Meta Pixel to measure our Facebook and Instagram ads. It records which pages you visit on this site and whether you send us an enquiry or tap our WhatsApp, phone or email links, and shares this with Meta Platforms. It does not send the details you type into our forms. Meta may use cookies and combine this with your Meta account activity. You can control ad tracking in your Facebook or Instagram ad settings, or by blocking third-party cookies in your browser.</p>
         </section>
         <section className="card-glow rounded-3xl border border-line bg-card p-6 shadow-card">
           <h2 className="flex items-center gap-3 text-xl font-semibold"><span className="brand-gradient h-6 w-1.5 shrink-0 rounded-full" aria-hidden />Contact</h2>

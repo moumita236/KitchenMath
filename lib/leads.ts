@@ -2,6 +2,8 @@
  * Sends a form submission to /api/lead, which forwards it to your Google Sheet.
  * See google-apps-script/SETUP.md for the one-time sheet setup.
  */
+import { trackMeta } from "@/lib/metaPixel";
+
 export type LeadFormType = "enquiry" | "scorecard";
 
 export interface LeadPayload {
@@ -29,7 +31,12 @@ export async function submitLead(payload: LeadPayload): Promise<{ ok: true } | {
       body: JSON.stringify({ ...payload, page: typeof window !== "undefined" ? window.location.pathname : "" }),
     });
     const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
-    if (res.ok && data.ok) return { ok: true };
+    if (res.ok && data.ok) {
+      // Tell Meta a real lead came in, so "Leads" ad campaigns can optimise for it.
+      // Honeypot (bot) submissions are skipped.
+      if (!payload.website) trackMeta("Lead", { content_name: payload.formType === "scorecard" ? "Growth scorecard" : "Free growth audit" });
+      return { ok: true };
+    }
     return { ok: false, error: data.error || "We couldn't send your details. Please try again." };
   } catch {
     return { ok: false, error: "No internet connection. Please check it and try again." };

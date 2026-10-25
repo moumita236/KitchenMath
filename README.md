@@ -133,6 +133,7 @@ copy .env.example .env.local
 | `NEXT_PUBLIC_SITE_URL` | `https://kitchenmath.in` | Canonical URLs, sitemap, Open Graph |
 | `GOOGLE_SHEETS_WEBHOOK_URL` | `https://script.google.com/macros/s/…/exec` | Where form submissions are sent (your Apps Script web app) |
 | `GOOGLE_SHEETS_SECRET` | `km-7f3a9c21e84b4d0f` | Must match `SECRET` in the Apps Script. Keeps others from writing to your sheet |
+| `NEXT_PUBLIC_META_PIXEL_ID` | `123456789012345` | Meta Pixel for Facebook/Instagram ads. Sends PageView, Contact (WhatsApp/phone/email taps) and Lead (successful form submissions). Leave empty to turn it off |
 
 Without the Google Sheets variables the forms show "The form isn't connected yet. Please email or WhatsApp us instead."
 
