@@ -27,6 +27,13 @@ const schema = z.object({
   priorities: z.array(z.string().max(80)).max(10).optional().default([]),
   page: text(200),
   website: text(200),
+  // Where the visitor came from (see lib/attribution.ts)
+  utmSource: text(100),
+  utmMedium: text(100),
+  utmCampaign: text(100),
+  utmContent: text(100),
+  utmTerm: text(100),
+  landingPage: text(200),
 });
 
 export async function POST(req: Request) {
@@ -71,6 +78,12 @@ export async function POST(req: Request) {
     areaScores: d.areaScores ? Object.entries(d.areaScores).map(([k, v]) => `${k}: ${v ?? "—"}`).join(" | ") : "",
     priorities: d.priorities.join(", "),
     page: d.page,
+    // e.g. "meta / paid" or "google.com / referral"; "Direct / unknown" when nothing was recorded
+    source: d.utmSource ? [d.utmSource, d.utmMedium].filter(Boolean).join(" / ") : "Direct / unknown",
+    campaign: d.utmCampaign,
+    adContent: d.utmContent,
+    keyword: d.utmTerm,
+    landingPage: d.landingPage,
     userAgent: req.headers.get("user-agent")?.slice(0, 200) ?? "",
   };
 

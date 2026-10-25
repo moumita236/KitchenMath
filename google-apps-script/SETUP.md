@@ -44,6 +44,29 @@ Restart `npm run dev` after changing `.env.local`.
 
 Open the home page, fill the form at the bottom and press **Request my free growth audit**. A new row should appear in the **Enquiries** tab within a few seconds.
 
+## 5. Ad source columns (update from October 2026)
+
+Every row now also records where the visitor came from, in five new columns at the end:
+
+| Column | Example | Comes from |
+|---|---|---|
+| Source | `meta / paid` | `utm_source` / `utm_medium` on the ad link; `meta / click (no UTM tags)` for untagged Meta links; `google.com / referral` for other websites; `Direct / unknown` if nothing was recorded |
+| Campaign | `contact_leads` | `utm_campaign` |
+| Ad / hook | `hook1` | `utm_content` |
+| Keyword | | `utm_term` (Google Ads only) |
+| Landing page | `/contact` | the first page they opened from that source |
+
+The source is remembered for 30 days, so a visitor who clicks the ad, leaves, and comes back later to fill the form still shows the ad as the source.
+
+**If you already set up the sheet before this update:**
+
+1. Open the sheet → **Extensions → Apps Script**.
+2. Paste in the new `Code.gs`, but **keep your own SECRET line** (copy it first).
+3. **Save**, then **Deploy → Manage deployments → ✏️ Edit → Version: New version → Deploy**. The URL stays the same, so nothing changes in Netlify/Vercel.
+4. The five new headings are added automatically on the next submission. If you added your own columns (for example "Called?") to the right of **Page**, move them further right first, because the new columns are written straight after **Page**.
+
+Until you update the script, the website keeps working: the extra data is simply ignored.
+
 ## Good to know
 
 - **Changed the script?** Use **Deploy → Manage deployments → ✏️ Edit → Version: New version → Deploy**. The URL stays the same. (A *New deployment* creates a new URL, which you'd then need to update in the env vars.)

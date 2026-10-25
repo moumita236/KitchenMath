@@ -4,6 +4,7 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { META_PIXEL_ID, trackMeta } from "@/lib/metaPixel";
+import { captureAttribution } from "@/lib/attribution";
 
 /**
  * Loads the Meta Pixel on every page and reports:
@@ -15,6 +16,12 @@ import { META_PIXEL_ID, trackMeta } from "@/lib/metaPixel";
 export function MetaPixel() {
   const pathname = usePathname();
   const lastPath = useRef<string | null>(null);
+
+  // Remember where the visitor came from (UTM tags / Meta click / referrer) for the Google Sheet.
+  // Runs even when no Pixel ID is set.
+  useEffect(() => {
+    captureAttribution();
+  }, [pathname]);
 
   // PageView on client-side page changes (the first one is sent by the base code below).
   useEffect(() => {

@@ -21,6 +21,12 @@ const SHEETS = {
       ["platforms", "Sells on"],
       ["message", "What they want to improve"],
       ["page", "Page"],
+      // Added for ad tracking. New columns always go at the END so existing rows stay aligned.
+      ["source", "Source"],
+      ["campaign", "Campaign"],
+      ["adContent", "Ad / hook"],
+      ["keyword", "Keyword"],
+      ["landingPage", "Landing page"],
     ],
   },
   scorecard: {
@@ -36,6 +42,12 @@ const SHEETS = {
       ["priorities", "Top priorities"],
       ["areaScores", "Area scores"],
       ["page", "Page"],
+      // Added for ad tracking. New columns always go at the END so existing rows stay aligned.
+      ["source", "Source"],
+      ["campaign", "Campaign"],
+      ["adContent", "Ad / hook"],
+      ["keyword", "Keyword"],
+      ["landingPage", "Landing page"],
     ],
   },
 };
@@ -52,9 +64,12 @@ function doPost(e) {
     let sheet = ss.getSheetByName(config.name);
     if (!sheet) sheet = ss.insertSheet(config.name);
 
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(config.columns.map(function (c) { return c[1]; }));
-      sheet.getRange(1, 1, 1, config.columns.length).setFontWeight("bold");
+    // Write the header row on a new sheet, and fill in any missing column headings on an existing one.
+    // Headings you typed yourself are never overwritten.
+    const headers = sheet.getRange(1, 1, 1, config.columns.length);
+    const current = headers.getValues()[0];
+    if (current.some(function (h) { return h === ""; })) {
+      headers.setValues([config.columns.map(function (c, i) { return current[i] === "" ? c[1] : current[i]; })]).setFontWeight("bold");
       sheet.setFrozenRows(1);
     }
 
