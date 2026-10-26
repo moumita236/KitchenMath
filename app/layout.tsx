@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   openGraph: { siteName: SITE.name, locale: SITE.locale, type: "website", images: [{ url: "/brand/kitchenmath-og.jpg", width: 1200, height: 630, alt: "KitchenMath: Restaurant growth on Zomato & Swiggy" }] },
   twitter: { card: "summary_large_image", images: ["/brand/kitchenmath-og.jpg"] },
   robots: { index: true, follow: true },
+  // Meta Business domain verification for kitchenmath.in (Business settings → Brand safety → Domains).
+  verification: { other: { "facebook-domain-verification": "9l4zjkg1ajdsfzc1zp7te8fpuq3xrl" } },
 };
 
 export const viewport: Viewport = {
